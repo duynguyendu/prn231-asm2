@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BusinessModel;
+namespace Asm2.eBookStore.EntityModel;
 
 public class Role
 {

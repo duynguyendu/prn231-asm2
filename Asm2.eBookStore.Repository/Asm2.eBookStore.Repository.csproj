@@ -4,10 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Asm2.eBookStore.Repository</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Repository\Repository.csproj" />
+      <ProjectReference Include="..\Asm2.eBookStore.EntityModel\Asm2.eBookStore.EntityModel.csproj" />
     </ItemGroup>
 
 </Project>

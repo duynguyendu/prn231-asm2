@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BusinessModel.Migrations
+namespace Asm2.eBookStore.EntityModel.Migrations
 {
     /// <inheritdoc />
     public partial class Migrations : Migration

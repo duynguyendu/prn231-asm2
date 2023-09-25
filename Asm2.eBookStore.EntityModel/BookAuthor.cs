@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace BusinessModel;
+namespace Asm2.eBookStore.EntityModel;
 
 [PrimaryKey(nameof(BookId), nameof(AuthorId))]
 public class BookAuthor

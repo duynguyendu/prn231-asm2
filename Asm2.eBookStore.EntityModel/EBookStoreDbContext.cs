@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace BusinessModel;
+namespace Asm2.eBookStore.EntityModel;
 
 public class EBookStoreDbContext : DbContext
 {
