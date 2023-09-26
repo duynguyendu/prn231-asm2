@@ -30,13 +30,27 @@ builder.Services.AddControllers();
 static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Book>("Books");
+    builder.EntitySet<BookDto>("Books");
     builder.EntitySet<PublisherDto>("Publishers");
+    builder.EntitySet<AuthorDto>("Authors");
     return builder.GetEdmModel();
 }
 
-builder.Services.AddControllers().AddOData((option => option.Select().Filter()
-    .Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel())));
+builder.Services
+    .AddControllers()
+    .AddOData(
+        (
+            option =>
+                option
+                    .Select()
+                    .Filter()
+                    .Count()
+                    .OrderBy()
+                    .Expand()
+                    .SetMaxTop(100)
+                    .AddRouteComponents("odata", GetEdmModel())
+        )
+    );
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

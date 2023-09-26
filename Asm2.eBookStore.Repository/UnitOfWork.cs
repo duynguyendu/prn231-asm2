@@ -11,6 +11,8 @@ public class UnitOfWork : IDisposable
     public PublishersRepository Publishers => _publishersRepository ??= new PublishersRepository(context);
     private UsersRepository? _usersRepository;
     public UsersRepository Users => _usersRepository ??= new UsersRepository(context);
+    private AuthorsRepository? _authorsRepository;
+    public AuthorsRepository Authors => _authorsRepository ??= new AuthorsRepository(context);
     
     public void Save()
     {

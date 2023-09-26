@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Asm2.eBookStore.Service;
 
-public class PublishersService
+public class PublishersService : IGenericService<Publisher>
 {
 
     private readonly UnitOfWork _unitOfWork;
@@ -14,29 +14,29 @@ public class PublishersService
         _unitOfWork = unitOfWork;
     }
 
-    public DbSet<Publisher> GetPublisher()
+    public DbSet<Publisher> Get()
     {
         return _unitOfWork.Publishers.GetByOdata();
     }
 
-    public Publisher? GetPublisherById(int id)
+    public Publisher? GetById(int id)
     {
         return _unitOfWork.Publishers.GetById(id);
     } 
 
-    public Publisher AddPublisher(Publisher publisher)
+    public Publisher Add(Publisher author)
     {
-        _unitOfWork.Publishers.Add(publisher);
+        _unitOfWork.Publishers.Add(author);
         _unitOfWork.Save();
-        return publisher;
+        return author;
     }
-    public Publisher UpdatePublisher(Publisher publisher)
+    public Publisher Update(Publisher publisher)
     {
         _unitOfWork.Publishers.Update(publisher);
         _unitOfWork.Save();
         return publisher;
     }
-    public void DeletePublisherById(int id)
+    public void DeleteById(int id)
     {
         _unitOfWork.Publishers.Delete(id);
         _unitOfWork.Save();

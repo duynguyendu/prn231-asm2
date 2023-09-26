@@ -11,5 +11,6 @@ public class MappingProfile : Profile
     {
         CreateMap<Publisher, PublisherDto>().ReverseMap();
         CreateMap<Publisher, PublisherUpdateDto>().ReverseMap();
+        CreateMap<Author, AuthorDto>().ReverseMap();
     }
 }

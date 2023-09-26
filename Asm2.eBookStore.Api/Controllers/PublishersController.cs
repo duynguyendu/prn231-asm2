@@ -27,38 +27,41 @@ public class PublishersController : ODataController
     [EnableQuery(PageSize = 3)]
     public ActionResult<ICollection<PublisherDto>> Get()
     {
-        return Ok(_publishersService.GetPublisher().ProjectTo<PublisherDto>(_mapper.ConfigurationProvider));
+        return Ok(_publishersService.Get().ProjectTo<PublisherDto>(_mapper.ConfigurationProvider));
     }
-    
+
     [EnableQuery]
     public ActionResult<SingleResult<PublisherDto>> Get([FromODataUri] int key)
     {
-        return Ok(_mapper.Map<PublisherDto>(_publishersService.GetPublisherById(key)));
+        return Ok(_mapper.Map<PublisherDto>(_publishersService.GetById(key)));
     }
 
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<Publisher> Post([FromBody] PublisherUpdateDto updateDto)
+    public ActionResult<PublisherDto> Post([FromBody] PublisherUpdateDto updateDto)
     {
         var publisher = _mapper.Map<Publisher>(updateDto);
-        var createdPublisher = _publishersService.AddPublisher(publisher);
-        return Created(createdPublisher);
+        var createdPublisher = _publishersService.Add(publisher);
+        return Created(_mapper.Map<PublisherDto>(createdPublisher));
     }
-    
+
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<Publisher> Put([FromODataUri] int key, [FromBody] PublisherUpdateDto updateDto)
+    public ActionResult<PublisherDto> Put(
+        [FromODataUri] int key,
+        [FromBody] PublisherUpdateDto updateDto
+    )
     {
         var publisher = _mapper.Map<Publisher>(updateDto);
         publisher.PublisherId = key;
-        var createdPublisher = _publishersService.UpdatePublisher(publisher);
-        return Ok(createdPublisher);
+        var createdPublisher = _publishersService.Update(publisher);
+        return Ok(_mapper.Map<PublisherDto>(createdPublisher));
     }
-    
+
     [EnableQuery]
     public IActionResult Delete([FromODataUri] int key)
     {
-        _publishersService.DeletePublisherById(key);
+        _publishersService.DeleteById(key);
         return NoContent();
     }
 }
