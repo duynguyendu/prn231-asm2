@@ -2,15 +2,12 @@
 
 namespace Asm2.eBookStore.Repository;
 
-public class UsersRepository
+public class UsersRepository : GenericRepository<User>
 {
-   private readonly EBookStoreDbContext context;
+    public UsersRepository(EBookStoreDbContext context) : base(context)
+    {
+    }
 
-   public UsersRepository(EBookStoreDbContext context)
-   {
-      this.context = context;
-   }
-   
     public User? GetUserByEmailAndPassword(string email, string password)
     {
         return context.Users.SingleOrDefault(x => x.Email == email && x.Password == password);

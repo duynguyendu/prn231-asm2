@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asm2.eBookStore.EntityModel;
 
-public class Book
+public class Book : GenericEntity
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BookId { get; set; }
@@ -19,4 +19,6 @@ public class Book
     public DateTime? PublishedDate { get; set; } = null!;
     
     public virtual Publisher? Publisher { get; set; }
+
+    public override int Id => BookId;
 }

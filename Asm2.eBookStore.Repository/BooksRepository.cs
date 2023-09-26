@@ -2,17 +2,9 @@
 
 namespace Asm2.eBookStore.Repository;
 
-public class BooksRepository
+public class BooksRepository : GenericRepository<Book>
 {
-   private readonly EBookStoreDbContext context;
-
-   public BooksRepository(EBookStoreDbContext context)
-   {
-      this.context = context;
-   }
-
-   public IQueryable<Book> GetByOdata()
-   {
-      return context.Books;
-   }
+    public BooksRepository(EBookStoreDbContext context) : base(context)
+    {
+    }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asm2.eBookStore.EntityModel;
 
-public class User
+public class User : GenericEntity
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int UserId { get; set; }
@@ -21,4 +21,6 @@ public class User
     
     public virtual Role? Role { get; set; }
     public virtual Publisher? Publisher { get; set; }
+
+    public override int Id => UserId;
 }
