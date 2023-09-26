@@ -8,15 +8,16 @@ public class UnitOfWork : IDisposable
     private BooksRepository? _booksRepository;
     public BooksRepository Books => _booksRepository ??= new BooksRepository(context);
     private PublishersRepository? _publishersRepository;
-    public PublishersRepository Publishers => _publishersRepository ??= new PublishersRepository(context);
+    public PublishersRepository Publishers =>
+        _publishersRepository ??= new PublishersRepository(context);
     private UsersRepository? _usersRepository;
     public UsersRepository Users => _usersRepository ??= new UsersRepository(context);
     private AuthorsRepository? _authorsRepository;
     public AuthorsRepository Authors => _authorsRepository ??= new AuthorsRepository(context);
-    
-    public void Save()
+
+    public async Task SaveAsync()
     {
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 
     private bool disposed = false;

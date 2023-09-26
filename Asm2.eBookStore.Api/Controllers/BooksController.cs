@@ -38,27 +38,30 @@ public class BooksController : ODataController
 
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<BookDto> Post([FromBody] BookUpdateDto updateDto)
+    public async Task<ActionResult<BookDto>> Post([FromBody] BookUpdateDto updateDto)
     {
         var book = _mapper.Map<Book>(updateDto);
-        var createdBook = _booksService.Add(book);
+        var createdBook = await _booksService.Add(book);
         return Created(_mapper.Map<BookDto>(createdBook));
     }
 
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<BookDto> Put([FromODataUri] int key, [FromBody] BookUpdateDto updateDto)
+    public async Task<ActionResult<BookDto>> Put(
+        [FromODataUri] int key,
+        [FromBody] BookUpdateDto updateDto
+    )
     {
         var book = _mapper.Map<Book>(updateDto);
         book.BookId = key;
-        var createdBook = _booksService.Update(book);
+        var createdBook = await _booksService.Update(book);
         return Ok(_mapper.Map<BookDto>(createdBook));
     }
 
     [EnableQuery]
-    public IActionResult Delete([FromODataUri] int key)
+    public async Task<IActionResult> Delete([FromODataUri] int key)
     {
-        _booksService.DeleteById(key);
+        await _booksService.DeleteById(key);
         return NoContent();
     }
 }

@@ -38,27 +38,30 @@ public class AuthorsController : ODataController
 
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<AuthorDto> Post([FromBody] AuthorUpdateDto updateDto)
+    public async Task<ActionResult<AuthorDto>> Post([FromBody] AuthorUpdateDto updateDto)
     {
         var author = _mapper.Map<Author>(updateDto);
-        var createdAuthor = _authorsService.Add(author);
+        var createdAuthor = await _authorsService.Add(author);
         return Created(_mapper.Map<AuthorDto>(createdAuthor));
     }
 
     [EnableQuery]
     [ValidateModel]
-    public ActionResult<AuthorDto> Put([FromODataUri] int key, [FromBody] AuthorUpdateDto updateDto)
+    public async Task<ActionResult<AuthorDto>> Put(
+        [FromODataUri] int key,
+        [FromBody] AuthorUpdateDto updateDto
+    )
     {
         var author = _mapper.Map<Author>(updateDto);
         author.AuthorId = key;
-        var createdAuthor = _authorsService.Update(author);
+        var createdAuthor = await _authorsService.Update(author);
         return Ok(_mapper.Map<AuthorDto>(createdAuthor));
     }
 
     [EnableQuery]
-    public IActionResult Delete([FromODataUri] int key)
+    public async Task<IActionResult> Delete([FromODataUri] int key)
     {
-        _authorsService.DeleteById(key);
+        await _authorsService.DeleteById(key);
         return NoContent();
     }
 }

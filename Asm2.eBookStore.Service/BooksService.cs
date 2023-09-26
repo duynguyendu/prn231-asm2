@@ -23,23 +23,24 @@ public class BooksService : IGenericService<Book>
         return _unitOfWork.Books.GetById(id);
     }
 
-    public Book Add(Book book)
+    public async Task<Book> Add(Book book)
     {
+        // TODO: create book author
         _unitOfWork.Books.Add(book);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
         return book;
     }
 
-    public Book Update(Book book)
+    public async Task<Book> Update(Book book)
     {
         _unitOfWork.Books.Update(book);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
         return book;
     }
 
-    public void DeleteById(int id)
+    public async Task DeleteById(int id)
     {
         _unitOfWork.Books.Delete(id);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
     }
 }

@@ -6,7 +6,6 @@ namespace Asm2.eBookStore.Service;
 
 public class PublishersService : IGenericService<Publisher>
 {
-
     private readonly UnitOfWork _unitOfWork;
 
     public PublishersService(UnitOfWork unitOfWork)
@@ -22,23 +21,25 @@ public class PublishersService : IGenericService<Publisher>
     public Publisher? GetById(int id)
     {
         return _unitOfWork.Publishers.GetById(id);
-    } 
-
-    public Publisher Add(Publisher author)
-    {
-        _unitOfWork.Publishers.Add(author);
-        _unitOfWork.Save();
-        return author;
     }
-    public Publisher Update(Publisher publisher)
+
+    public async Task<Publisher> Add(Publisher publisher)
     {
-        _unitOfWork.Publishers.Update(publisher);
-        _unitOfWork.Save();
+        _unitOfWork.Publishers.Add(publisher);
+        await _unitOfWork.SaveAsync();
         return publisher;
     }
-    public void DeleteById(int id)
+
+    public async Task<Publisher> Update(Publisher publisher)
+    {
+        _unitOfWork.Publishers.Update(publisher);
+        await _unitOfWork.SaveAsync();
+        return publisher;
+    }
+
+    public async Task DeleteById(int id)
     {
         _unitOfWork.Publishers.Delete(id);
-        _unitOfWork.Save();
-    } 
+        await _unitOfWork.SaveAsync();
+    }
 }
