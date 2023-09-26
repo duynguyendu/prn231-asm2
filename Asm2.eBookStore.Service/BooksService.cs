@@ -1,14 +1,19 @@
 ﻿using Asm2.eBookStore.EntityModel;
-using Microsoft.EntityFrameworkCore;
+using Asm2.eBookStore.Repository;
 
 namespace Asm2.eBookStore.Service;
 
 public class BooksService
 {
-    private readonly EBookStoreDbContext context = new EBookStoreDbContext();
+    private readonly UnitOfWork _unitOfWork;
 
-    public DbSet<Book> GetBook()
+    public BooksService(UnitOfWork unitOfWork)
     {
-        return context.Books;
+        _unitOfWork = unitOfWork;
+    }
+
+    public IQueryable<Book> GetBook()
+    {
+        return _unitOfWork.Books.GetByOdata();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Asm2.eBookStore.Service;
+﻿using Asm2.eBookStore.EntityModel;
+using Asm2.eBookStore.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
@@ -16,7 +17,7 @@ public class BooksController : ODataController
 
     [HttpGet]
     [EnableQuery]
-    public IActionResult Get()
+    public ActionResult<IQueryable<Book>> Get()
     {
         return Ok(_booksService.GetBook());
     }

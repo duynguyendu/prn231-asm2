@@ -1,4 +1,5 @@
 using Asm2.eBookStore.EntityModel;
+using Asm2.eBookStore.Repository;
 using Asm2.eBookStore.Service;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
@@ -24,6 +25,7 @@ builder.Services.AddControllers().AddOData((option => option.Select().Filter()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<BooksService, BooksService>();
 builder.Services.AddScoped<PublishersService, PublishersService>();
 
