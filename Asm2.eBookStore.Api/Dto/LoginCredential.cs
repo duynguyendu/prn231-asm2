@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Asm2.eBookStore.Api.ApiModel;
+namespace Asm2.eBookStore.Api.Dto;
 
 public class LoginCredential
 {

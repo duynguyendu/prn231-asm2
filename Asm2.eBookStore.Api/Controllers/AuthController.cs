@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using Asm2.eBookStore.Api.ApiModel;
-using Asm2.eBookStore.Api.ApiModel.Response;
+using Asm2.eBookStore.Api.Dto;
+using Asm2.eBookStore.Api.Dto.Response;
 using Asm2.eBookStore.Service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

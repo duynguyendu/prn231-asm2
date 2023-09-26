@@ -1,4 +1,4 @@
-﻿namespace Asm2.eBookStore.Api.ApiModel.Response;
+﻿namespace Asm2.eBookStore.Api.Dto.Response;
 
 public class LoginDto
 {

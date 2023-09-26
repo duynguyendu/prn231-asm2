@@ -1,8 +1,10 @@
 using Asm2.eBookStore.Api;
+using Asm2.eBookStore.Api.Dto.Response;
 using Asm2.eBookStore.EntityModel;
 using Asm2.eBookStore.Repository;
 using Asm2.eBookStore.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
@@ -29,12 +31,13 @@ static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
     builder.EntitySet<Book>("Books");
-    builder.EntitySet<Publisher>("Publishers");
+    builder.EntitySet<PublisherDto>("Publishers");
     return builder.GetEdmModel();
 }
+
 builder.Services.AddControllers().AddOData((option => option.Select().Filter()
     .Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel())));
-    
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
