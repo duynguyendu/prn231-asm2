@@ -9,6 +9,8 @@ public class UnitOfWork : IDisposable
     public BooksRepository Books => _booksRepository ??= new BooksRepository(context);
     private PublishersRepository? _publishersRepository;
     public PublishersRepository Publishers => _publishersRepository ??= new PublishersRepository(context);
+    private UsersRepository? _usersRepository;
+    public UsersRepository Users => _usersRepository ??= new UsersRepository(context);
     
     public void Save()
     {
