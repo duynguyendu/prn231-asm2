@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asm2.eBookStore.EntityModel;
 
-public class Role
+public class Role : GenericEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int RoleId { get; set; }
     public string Description { get; set; } = null!;
 }

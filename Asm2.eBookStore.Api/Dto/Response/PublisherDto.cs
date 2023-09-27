@@ -5,7 +5,7 @@ namespace Asm2.eBookStore.Api.Dto.Response;
 public class PublisherDto
 {
     [Key]
-    public int PublisherId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string? City { get; set; }
     public string? State { get; set; }

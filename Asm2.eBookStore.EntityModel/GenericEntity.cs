@@ -1,6 +1,10 @@
-﻿namespace Asm2.eBookStore.EntityModel;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Asm2.eBookStore.EntityModel;
 
 public abstract class GenericEntity
 {
-    public abstract int Id { get; }
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
 }

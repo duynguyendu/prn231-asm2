@@ -5,8 +5,6 @@ namespace Asm2.eBookStore.EntityModel;
 
 public class Book : GenericEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int BookId { get; set; }
     public string Title { get; set; } = null!;
     public string Type { get; set; } = null!;
 
@@ -21,6 +19,4 @@ public class Book : GenericEntity
 
     public virtual ICollection<BookAuthor> BookAuthors { get; set; }
     public virtual Publisher? Publisher { get; set; }
-
-    public override int Id => BookId;
 }

@@ -53,7 +53,7 @@ public class BooksController : ODataController
     )
     {
         var book = _mapper.Map<Book>(updateDto);
-        book.BookId = key;
+        book.Id = key;
         var createdBook = await _booksService.Update(book);
         return Ok(_mapper.Map<BookDto>(createdBook));
     }

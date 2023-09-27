@@ -53,7 +53,7 @@ public class AuthorsController : ODataController
     )
     {
         var author = _mapper.Map<Author>(updateDto);
-        author.AuthorId = key;
+        author.Id = key;
         var createdAuthor = await _authorsService.Update(author);
         return Ok(_mapper.Map<AuthorDto>(createdAuthor));
     }

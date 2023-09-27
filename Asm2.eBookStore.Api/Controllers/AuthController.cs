@@ -36,7 +36,7 @@ public class AuthController : Controller
         {
             new(type: ClaimTypes.Email, value: credential.Email!),
             new(type: ClaimTypes.Role, value: roleName),
-            new(type: ClaimTypes.Sid, value: user?.UserId.ToString() ?? "-1")
+            new(type: ClaimTypes.Sid, value: user?.Id.ToString() ?? "-1")
         };
 
         await RegisterClaims(claims);

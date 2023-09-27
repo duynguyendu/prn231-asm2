@@ -6,9 +6,6 @@ namespace Asm2.eBookStore.EntityModel;
 
 public class BookAuthor : GenericEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int BookAuthorId { get; set; }
-
     [ForeignKey(nameof(Book))]
     public int? BookId { get; set; }
 
@@ -20,6 +17,4 @@ public class BookAuthor : GenericEntity
 
     public virtual Book? Book { get; set; }
     public virtual Author? Author { get; set; }
-
-    public override int Id => BookAuthorId;
 }

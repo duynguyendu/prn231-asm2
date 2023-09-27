@@ -53,7 +53,7 @@ public class PublishersController : ODataController
     )
     {
         var publisher = _mapper.Map<Publisher>(updateDto);
-        publisher.PublisherId = key;
+        publisher.Id = key;
         var createdPublisher = await _publishersService.Update(publisher);
         return Ok(_mapper.Map<PublisherDto>(createdPublisher));
     }
