@@ -48,6 +48,7 @@ public class BooksService : IGenericService<Book>
 
     public async Task DeleteById(int id)
     {
+        _unitOfWork.BookAuthors.DeleteByBookId(id);
         _unitOfWork.Books.Delete(id);
         await _unitOfWork.SaveAsync();
     }

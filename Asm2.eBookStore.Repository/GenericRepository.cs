@@ -34,7 +34,7 @@ public abstract class GenericRepository<T> where T : GenericEntity
 
     public void Delete(int id)
     {
-        var entity = context.Set<T>().SingleOrDefault(x => x.Id == id);
+        var entity = GetById(id);
         if (entity != null)
         {
             context.Set<T>().Remove(entity);

@@ -19,7 +19,6 @@ public class Book : GenericEntity
     public string? Notes { get; set; } = null!;
     public DateTime? PublishedDate { get; set; } = null!;
 
-    [Required]
     public virtual ICollection<BookAuthor> BookAuthors { get; set; }
     public virtual Publisher? Publisher { get; set; }
 
