@@ -39,7 +39,11 @@ public class AuthorsService : IGenericService<Author>
 
     public async Task DeleteById(int id)
     {
-        _unitOfWork.Authors.Delete(id);
-        await _unitOfWork.SaveAsync();
+        if (!_unitOfWork.BookAuthors.ExistByAuthorId(id))
+        {
+            _unitOfWork.Authors.Delete(id);
+            // TODO: only delete if there is no BookAuthor
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

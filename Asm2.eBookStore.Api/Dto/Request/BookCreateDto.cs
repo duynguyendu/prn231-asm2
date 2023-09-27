@@ -2,7 +2,7 @@
 
 namespace Asm2.eBookStore.Api.Dto.Request;
 
-public class BookUpdateDto
+public class BookCreateDto
 {
     [Required]
     public string Title { get; set; } = null!;
@@ -15,4 +15,11 @@ public class BookUpdateDto
     public decimal? YtdSales { get; set; } = null!;
     public string? Notes { get; set; } = null!;
     public DateTime? PublishedDate { get; set; } = null!;
+
+    [Required]
+    public int PublisherId { get; set; }
+
+    [Required]
+    [MinLength(1)]
+    public ICollection<int> AuthorIds { get; set; } = new List<int>();
 }

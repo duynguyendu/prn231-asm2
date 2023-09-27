@@ -59,6 +59,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<BooksService, BooksService>();
 builder.Services.AddScoped<PublishersService, PublishersService>();
+builder.Services.AddScoped<AuthorsService, AuthorsService>();
 
 var app = builder.Build();
 

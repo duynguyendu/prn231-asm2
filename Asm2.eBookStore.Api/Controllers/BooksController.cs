@@ -38,10 +38,10 @@ public class BooksController : ODataController
 
     [EnableQuery]
     [ValidateModel]
-    public async Task<ActionResult<BookDto>> Post([FromBody] BookUpdateDto updateDto)
+    public async Task<ActionResult<BookDto>> Post([FromBody] BookCreateDto createDto)
     {
-        var book = _mapper.Map<Book>(updateDto);
-        var createdBook = await _booksService.Add(book);
+        var book = _mapper.Map<Book>(createDto);
+        var createdBook = await _booksService.Add(book, createDto.AuthorIds);
         return Created(_mapper.Map<BookDto>(createdBook));
     }
 

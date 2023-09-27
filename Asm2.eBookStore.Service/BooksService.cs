@@ -23,12 +23,20 @@ public class BooksService : IGenericService<Book>
         return _unitOfWork.Books.GetById(id);
     }
 
-    public async Task<Book> Add(Book book)
+    public async Task<Book> Add(Book book, ICollection<int> authorIds)
     {
-        // TODO: create book author
+        var bookAuthors = authorIds
+            .Select(x => new BookAuthor { AuthorId = x, Book = book })
+            .ToList();
+        book.BookAuthors = bookAuthors;
         _unitOfWork.Books.Add(book);
         await _unitOfWork.SaveAsync();
         return book;
+    }
+
+    public async Task<Book> Add(Book book)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Book> Update(Book book)
