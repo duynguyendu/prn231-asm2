@@ -6,10 +6,13 @@ using Asm2.eBookStore.Service;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.OData.Edm;
+using Microsoft.OData.UriParser;
 
 namespace Asm2.eBookStore.Api.Controllers;
 
@@ -33,7 +36,54 @@ public class BooksController : ODataController
     [EnableQuery]
     public ActionResult<SingleResult<BookDto>> Get([FromODataUri] int key)
     {
-        return Ok(_mapper.Map<BookDto>(_booksService.GetById(key)));
+        return Ok(
+            SingleResult.Create(
+                _booksService
+                    .Get()
+                    .Where(x => x.Id == key)
+                    .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
+            )
+        );
+    }
+
+    [EnableQuery]
+    public ActionResult<IQueryable<BookAuthor>> GetBookAuthors([FromODataUri] int key)
+    {
+        return Ok(_booksService.GetBookAuthorsById(key));
+    }
+
+    [EnableQuery]
+    public ActionResult<IQueryable<BookAuthor>> GetRefToBookAuthors([FromODataUri] int key)
+    {
+        return Ok(_booksService.GetBookAuthorsById(key));
+    }
+
+    [EnableQuery]
+    public async Task<ActionResult> CreateRefToBookAuthors(
+        [FromODataUri] int key,
+        [FromBody] Uri link
+    )
+    {
+        if (!TryParseRelatedKey(link, out var authorId))
+        {
+            return BadRequest();
+        }
+        await _booksService.AddAuthor(key, authorId);
+        return NoContent();
+    }
+
+    [EnableQuery]
+    public async Task<ActionResult> DeleteRefToBookAuthors(
+        [FromODataUri] int key,
+        [FromBody] Uri link
+    )
+    {
+        if (!TryParseRelatedKey(link, out var authorId))
+        {
+            return BadRequest();
+        }
+        await _booksService.DeleteByBookIdAndAuthorId(key, authorId);
+        return NoContent();
     }
 
     [EnableQuery]
@@ -63,5 +113,21 @@ public class BooksController : ODataController
     {
         await _booksService.DeleteById(key);
         return NoContent();
+    }
+
+    private bool TryParseRelatedKey(Uri link, out int relatedKey)
+    {
+        relatedKey = 0;
+
+        var model = Request.GetRouteServices().GetService(typeof(IEdmModel)) as IEdmModel;
+        var serviceRoot = Request.CreateODataLink();
+
+        var uriParser = new ODataUriParser(model, new Uri(serviceRoot), link);
+        // NOTE: ParsePath may throw exceptions for various reasons
+        var odataPath = uriParser.ParsePath();
+        var keySegment = odataPath.OfType<KeySegment>().LastOrDefault();
+
+        return keySegment != null
+            && int.TryParse(keySegment.Keys.First().Value.ToString(), out relatedKey);
     }
 }

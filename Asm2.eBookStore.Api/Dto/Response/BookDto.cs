@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Asm2.eBookStore.EntityModel;
 
 namespace Asm2.eBookStore.Api.Dto.Response;
 
@@ -16,4 +17,5 @@ public class BookDto
     public string? Notes { get; set; } = null!;
     public DateTime? PublishedDate { get; set; } = null!;
     public virtual PublisherDto? Publisher { get; set; }
+    public virtual ICollection<BookAuthor>? BookAuthors { get; set; }
 }

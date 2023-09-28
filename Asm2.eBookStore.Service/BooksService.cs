@@ -23,6 +23,11 @@ public class BooksService : IGenericService<Book>
         return _unitOfWork.Books.GetById(id);
     }
 
+    public IQueryable<BookAuthor> GetBookAuthorsById(int id)
+    {
+        return _unitOfWork.BookAuthors.GetByOdata().Where(x => x.BookId == id);
+    }
+
     public async Task<Book> Add(Book book, ICollection<int> authorIds)
     {
         var bookAuthors = authorIds
@@ -32,6 +37,17 @@ public class BooksService : IGenericService<Book>
         _unitOfWork.Books.Add(book);
         await _unitOfWork.SaveAsync();
         return book;
+    }
+
+    public async Task AddAuthor(int bookId, int authorId)
+    {
+        if (_unitOfWork.BookAuthors.ExistByBookIdAndAuthorId(bookId, authorId))
+        {
+            return;
+        }
+        var bookAuthor = new BookAuthor { BookId = bookId, AuthorId = authorId };
+        _unitOfWork.BookAuthors.Add(bookAuthor);
+        await _unitOfWork.SaveAsync();
     }
 
     public async Task<Book> Add(Book book)
@@ -50,6 +66,16 @@ public class BooksService : IGenericService<Book>
     {
         _unitOfWork.BookAuthors.DeleteByBookId(id);
         _unitOfWork.Books.Delete(id);
+        await _unitOfWork.SaveAsync();
+    }
+
+    public async Task DeleteByBookIdAndAuthorId(int bookId, int authorId)
+    {
+        if (!_unitOfWork.BookAuthors.ExistByBookIdAndAuthorId(bookId, authorId))
+        {
+            return;
+        }
+        _unitOfWork.BookAuthors.DeleteByBookIdAndAuthorId(bookId, authorId);
         await _unitOfWork.SaveAsync();
     }
 }

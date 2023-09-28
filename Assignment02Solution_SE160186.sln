@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asm2.eBookStore.Service", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asm2.eBookStore.Api", "Asm2.eBookStore.Api\Asm2.eBookStore.Api.csproj", "{95E79DAA-38E9-4DF7-A2FE-87D35D8010C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asm2.eBookStore.Client", "Asm2.eBookStore.Client\Asm2.eBookStore.Client.csproj", "{B5E4720C-717D-40F5-9101-ACEE48796B85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{95E79DAA-38E9-4DF7-A2FE-87D35D8010C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95E79DAA-38E9-4DF7-A2FE-87D35D8010C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95E79DAA-38E9-4DF7-A2FE-87D35D8010C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E4720C-717D-40F5-9101-ACEE48796B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E4720C-717D-40F5-9101-ACEE48796B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E4720C-717D-40F5-9101-ACEE48796B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E4720C-717D-40F5-9101-ACEE48796B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

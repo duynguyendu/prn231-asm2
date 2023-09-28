@@ -33,6 +33,7 @@ static IEdmModel GetEdmModel()
     builder.EntitySet<BookDto>("Books");
     builder.EntitySet<PublisherDto>("Publishers");
     builder.EntitySet<AuthorDto>("Authors");
+    builder.EntitySet<BookAuthor>("BookAuthors");
     return builder.GetEdmModel();
 }
 
