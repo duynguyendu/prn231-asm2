@@ -1,0 +1,24 @@
+﻿@model Asm2.eBookStore.Api.Dto.LoginCredential
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+    var error = Context.Items["Error"];
+}
+
+<h2>Login</h2>
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" type="password"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Login</button>
+    <span class="text-danger">@ViewBag.Error</span>
+    <span class="text-danger">@error</span>
+</form>

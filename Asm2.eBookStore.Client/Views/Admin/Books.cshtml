@@ -1,0 +1,105 @@
+﻿@model BooksViewModel
+
+@{
+    ViewBag.Title = "Books";
+    Layout = "_Layout";
+}
+
+<span class="text-danger">@TempData["NotFoundError"]</span>
+<span class="text-danger">@TempData["ConflictError"]</span>
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Manage <b>Books</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="@Url.Action("UpsertBook")" class="btn btn-success" data-toggle="modal">
+                            <i class="material-icons">&#xE147;</i> <span>Add New Book</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label asp-for="Title" class="form-label">Book name</label>
+                            <input asp-for="Title" class="form-control"/>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="Price" class="form-label">Unit price</label>
+                            <input asp-for="Price" class="form-control"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Id)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Title)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Type)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Publisher!.Name)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Price)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Advance)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Royalty)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].YtdSales)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].Notes)</th>
+                    <th>@Html.DisplayNameFor(m => m.Books[0].PublishedDate)</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var book in @Model.Books)
+                {
+                    <tr>
+                        <td>@book.Id</td>
+                        <td>@book.Title</td>
+                        <td>@book.Type</td>
+                        <td>@book.Publisher?.Name</td>
+                        <td>@book.Price</td>
+                        <td>@book.Advance</td>
+                        <td>@book.Royalty</td>
+                        <td>@book.YtdSales</td>
+                        <td>@book.Notes</td>
+                        <td>@book.PublishedDate</td>
+                        <td>
+                            <a href="@Url.Action("UpsertBook", new { id = book.Id })" class="edit">
+                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                            </a>
+                            <form asp-action="DeleteBook" method="post" asp-route-id="@book.Id"
+                                  onclick="return confirm('Are you sure you want to delete this?')"
+                                  style="display: inline-block; width: 30px; padding: 0">
+                                <button type="submit" class="text-danger" style="background: none;box-shadow: none;border: 0;border-radius: 0;">
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>@Model.Books.Count</b> out of <b>@Model.TotalCount</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a href="@Url.Action("Books", "Admin", new { title = Model.Title, price = Model.Price, page = Model.CurrentPage + 1 })" class="page-link">Previous</a>
+                    </li>
+                    @for (var i = 1; i <= Model.TotalPage; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a href="@Url.Action("Books", "Admin", new { title = Model.Title, price = Model.Price, page = Model.CurrentPage + 1 })" class="page-link">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">
+                        <a href="@Url.Action("Books", "Admin", new { title = Model.Title, price = Model.Price, page = Model.CurrentPage + 1 })" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

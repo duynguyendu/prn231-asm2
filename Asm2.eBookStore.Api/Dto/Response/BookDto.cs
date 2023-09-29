@@ -3,8 +3,10 @@ using Asm2.eBookStore.EntityModel;
 
 namespace Asm2.eBookStore.Api.Dto.Response;
 
-public class BookDto
+public class BookDto : IODataEntity
 {
+    public static string EntitySet => "Books";
+
     [Key]
     public int Id { get; set; }
     public string Title { get; set; } = null!;

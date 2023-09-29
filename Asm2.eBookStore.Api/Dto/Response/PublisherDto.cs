@@ -2,8 +2,10 @@
 
 namespace Asm2.eBookStore.Api.Dto.Response;
 
-public class PublisherDto
+public class PublisherDto : IODataEntity
 {
+    public static string EntitySet => "Publishers";
+
     [Key]
     public int Id { get; set; }
     public string Name { get; set; } = null!;

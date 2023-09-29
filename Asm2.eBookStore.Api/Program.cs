@@ -4,7 +4,6 @@ using Asm2.eBookStore.EntityModel;
 using Asm2.eBookStore.Repository;
 using Asm2.eBookStore.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;

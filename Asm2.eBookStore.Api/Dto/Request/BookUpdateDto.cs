@@ -4,6 +4,7 @@ namespace Asm2.eBookStore.Api.Dto.Request;
 
 public class BookUpdateDto
 {
+    // TODO: validation
     [Required]
     public string Title { get; set; } = null!;
 
