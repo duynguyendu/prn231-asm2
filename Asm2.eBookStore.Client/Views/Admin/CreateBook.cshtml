@@ -1,0 +1,57 @@
+﻿@model BookCreateViewModel
+
+@{
+    ViewBag.Title = "Create Book";
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div class="modal-header">
+        <h4 class="modal-title">Create Book</h4>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.Title" class="form-label"></label>
+        <input asp-for="BookCreate.Title" class="form-control"/>
+        <span asp-validation-for="BookCreate.Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.PublisherId" class="form-label"></label>
+        <select asp-for="BookCreate.PublisherId" asp-items="Model.Publishers" class="form-control"></select>
+        <span asp-validation-for="BookCreate.PublisherId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.Type" class="form-label"></label>
+        <input asp-for="BookCreate.Type" class="form-control"/>
+        <span asp-validation-for="BookCreate.Type" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.Price" class="form-label"></label>
+        <input asp-for="BookCreate.Price" class="form-control"/>
+        <span asp-validation-for="BookCreate.Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.Advance" class="form-label"></label>
+        <input asp-for="BookCreate.Advance" class="form-control"/>
+        <span asp-validation-for="BookCreate.Advance" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.Royalty" class="form-label"></label>
+        <input asp-for="BookCreate.Royalty" class="form-control"/>
+        <span asp-validation-for="BookCreate.Royalty" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.YtdSales" class="form-label"></label>
+        <input asp-for="BookCreate.YtdSales" class="form-control"/>
+        <span asp-validation-for="BookCreate.YtdSales" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookCreate.PublishedDate" class="form-label"></label>
+        <input asp-for="BookCreate.PublishedDate" class="form-control"/>
+        <span asp-validation-for="BookCreate.PublishedDate" class="text-danger"></span>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
+        <input type="submit" class="btn btn-info" value="Save">
+    </div>
+    <span class="text-danger">@ViewBag.Error</span>
+</form>

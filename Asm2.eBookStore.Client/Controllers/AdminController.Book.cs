@@ -1,9 +1,9 @@
-﻿using System.Linq.Dynamic.Core;
-using Asm2.eBookStore.Api.Dto.Request;
+﻿using Asm2.eBookStore.Api.Dto.Request;
 using Asm2.eBookStore.Api.Dto.Response;
 using Asm2.eBookStore.Client.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.OData.Client;
 
 namespace Asm2.eBookStore.Client.Controllers;
@@ -40,49 +40,55 @@ public partial class AdminController : BaseController
         return View(booksViewModel);
     }
 
-    public async Task<IActionResult> UpsertBook(int? id)
+    public async Task<IActionResult> CreateBook()
     {
-        // TODO: publisher and author as well
-        BookUpdateDto dto;
-        if (id != null)
-        {
-            var (bookResponse, bookResult) = await GetSingleAsync(
-                QueryOf<BookDto>().Where(x => x.Id == id)
-            );
-            if (!bookResponse.IsSuccessStatusCode)
-            {
-                TempData["NotFoundError"] = $"Book with {id} not found.";
-                return RedirectToAction("Books");
-            }
-
-            dto = _mapper.Map<BookUpdateDto>(bookResult!);
-        }
-        else
-        {
-            dto = new BookUpdateDto();
-        }
-        var model = new BookUpsertViewModel() { Id = id, Book = dto };
+        var model = new BookCreateViewModel();
+        await PrepareModel(model);
         return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpsertBook(BookUpsertViewModel model)
+    public async Task<IActionResult> CreateBook(BookCreateViewModel model)
     {
-        if (!TryValidateModel(model.Book))
+        if (!TryValidateModel(model.BookCreate))
         {
+            await PrepareModel(model);
             return View(model);
         }
+        return RedirectToAction("Books");
+    }
 
-        HttpResponseMessage response;
-        if (model.Id != null)
+    public async Task<IActionResult> EditBook(int id)
+    {
+        var (bookResponse, bookResult) = await GetSingleAsync(
+            QueryOf<BookDto>().Where(x => x.Id == id)
+        );
+        if (!bookResponse.IsSuccessStatusCode)
         {
-            response = await PutAsync(QueryOf<BookDto>().Where(x => x.Id == model.Id), model.Book);
-        }
-        else
-        {
-            (response, _) = await PostAsync(QueryOf<BookDto>(), model.Book);
+            TempData["NotFoundError"] = $"Book with {id} not found.";
+            return RedirectToAction("Books");
         }
 
+        var model = new BookEditViewModel
+        {
+            BookUpdate = _mapper.Map<BookUpdateDto>(bookResult!),
+            Id = id
+        };
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditBook(BookEditViewModel model)
+    {
+        if (!TryValidateModel(model.BookUpdate))
+        {
+            await PrepareModel(model);
+            return View(model);
+        }
+        var response = await PutAsync(
+            QueryOf<BookDto>().Where(x => x.Id == model.Id),
+            model.BookUpdate
+        );
         if (!response.IsSuccessStatusCode)
         {
             ViewBag.Error = "Unknown error happened";
@@ -113,4 +119,59 @@ public partial class AdminController : BaseController
         pagingResult.TotalPage = (response.TotalCount + PageSize - 1) / PageSize;
         pagingResult.TotalCount = response.TotalCount;
     }
+
+    private async Task PrepareModel(IBookViewModel model)
+    {
+        // prepare publishers and authors
+        var (_, publishers) = await GetAsync(QueryOf<PublisherDto>());
+        var publisherSelectItems = publishers!.Value
+            .Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name })
+            .ToList();
+
+        var (_, authors) = await GetAsync(QueryOf<AuthorDto>());
+        var authorSelectItems = authors!.Value
+            .Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.FullName })
+            .ToList();
+        model.Publishers = publisherSelectItems;
+        model.Authors = authorSelectItems;
+        // model.BookDto.BookDetails = GetBookDetails();
+    }
+
+    // private void SaveBookAuthors(BookAuthorCreateDto dto)
+    // {
+    //     var dtos = GetBookAuthors();
+    //
+    //     dtos = dtos.Where(x => x.ProductId != dto.ProductId).ToList();
+    //     dtos.Add(dto);
+    //     HttpContext.Session.SetString("orderAuthors", JsonConvert.SerializeObject(dtos));
+    // }
+    //
+    // private IList<BookAuthorCreateDto> GetBookAuthors()
+    // {
+    //     var session = HttpContext.Session;
+    //     var sessionDto = session.GetString("orderAuthors");
+    //     IList<BookAuthorCreateDto> dtos;
+    //     if (!sessionDto.IsNullOrEmpty())
+    //     {
+    //         dtos = JsonConvert.DeserializeObject<List<BookAuthorCreateDto>>(sessionDto);
+    //     }
+    //     else
+    //     {
+    //         dtos = new List<BookAuthorCreateDto>();
+    //     }
+    //
+    //     if (dtos == null)
+    //     {
+    //         dtos = new List<BookAuthorCreateDto>();
+    //     }
+    //
+    //     return dtos;
+    // }
+    //
+    // private void RemoveBookAuthor(int productId)
+    // {
+    //     var dtos = GetBookAuthors();
+    //     dtos = dtos.Where(x => x.ProductId != productId).ToList();
+    //     HttpContext.Session.SetString("orderAuthors", JsonConvert.SerializeObject(dtos));
+    // }
 }

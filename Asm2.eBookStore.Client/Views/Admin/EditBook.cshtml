@@ -1,0 +1,57 @@
+﻿@model BookEditViewModel
+
+@{
+    ViewBag.Title = "Update Book";
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div class="modal-header">
+        <h4 class="modal-title">Update Book</h4>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label"></label>
+        <input asp-for="Id" class="form-control" disabled/>
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.Title" class="form-label"></label>
+        <input asp-for="BookUpdate.Title" class="form-control"/>
+        <span asp-validation-for="BookUpdate.Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.Type" class="form-label"></label>
+        <input asp-for="BookUpdate.Type" class="form-control"/>
+        <span asp-validation-for="BookUpdate.Type" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.Price" class="form-label"></label>
+        <input asp-for="BookUpdate.Price" class="form-control"/>
+        <span asp-validation-for="BookUpdate.Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.Advance" class="form-label"></label>
+        <input asp-for="BookUpdate.Advance" class="form-control"/>
+        <span asp-validation-for="BookUpdate.Advance" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.Royalty" class="form-label"></label>
+        <input asp-for="BookUpdate.Royalty" class="form-control"/>
+        <span asp-validation-for="BookUpdate.Royalty" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.YtdSales" class="form-label"></label>
+        <input asp-for="BookUpdate.YtdSales" class="form-control"/>
+        <span asp-validation-for="BookUpdate.YtdSales" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="BookUpdate.PublishedDate" class="form-label"></label>
+        <input asp-for="BookUpdate.PublishedDate" class="form-control"/>
+        <span asp-validation-for="BookUpdate.PublishedDate" class="text-danger"></span>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
+        <input type="submit" class="btn btn-info" value="Save">
+    </div>
+    <span class="text-danger">@ViewBag.Error</span>
+</form>

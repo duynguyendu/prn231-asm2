@@ -16,7 +16,7 @@
                         <h2>Manage <b>Books</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="@Url.Action("UpsertBook")" class="btn btn-success" data-toggle="modal">
+                        <a href="@Url.Action("CreateBook")" class="btn btn-success" data-toggle="modal">
                             <i class="material-icons">&#xE147;</i> <span>Add New Book</span>
                         </a>
                     </div>
@@ -68,7 +68,7 @@
                         <td>@book.Notes</td>
                         <td>@book.PublishedDate</td>
                         <td>
-                            <a href="@Url.Action("UpsertBook", new { id = book.Id })" class="edit">
+                            <a href="@Url.Action("EditBook", new { id = book.Id })" class="edit">
                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                             </a>
                             <form asp-action="DeleteBook" method="post" asp-route-id="@book.Id"

@@ -16,4 +16,6 @@ public class AuthorDto : IODataEntity
     public string? State { get; set; } = null!;
     public string? Zip { get; set; } = null!;
     public string? Email { get; set; } = null!;
+
+    public string FullName => $"{FirstName} {LastName}";
 }
