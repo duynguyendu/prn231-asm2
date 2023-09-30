@@ -1,0 +1,80 @@
+﻿@model Asm2.eBookStore.Client.Models.Publishers.PublishersViewModel
+
+@{
+    ViewBag.Title = "Publishers";
+    Layout = "_Layout";
+}
+
+<span class="text-danger">@TempData["NotFoundError"]</span>
+<span class="text-danger">@TempData["ConflictError"]</span>
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Manage <b>Publishers</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="@Url.Action("CreatePublisher")" class="btn btn-success" data-toggle="modal">
+                            <i class="material-icons">&#xE147;</i> <span>Add New Publisher</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Publishers[0].Id)</th>
+                    <th>@Html.DisplayNameFor(m => m.Publishers[0].Name)</th>
+                    <th>@Html.DisplayNameFor(m => m.Publishers[0].City)</th>
+                    <th>@Html.DisplayNameFor(m => m.Publishers[0].State)</th>
+                    <th>@Html.DisplayNameFor(m => m.Publishers[0].Country)</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var publisher in @Model.Publishers)
+                {
+                    <tr>
+                        <td>publisher.Id</td>
+                        <td>publisher.Name</td>
+                        <td>publisher.City</td>
+                        <td>publisher.State</td>
+                        <td>publisher.Country</td>
+                        <td>
+                            <a href="@Url.Action("EditPublisher", new { id = publisher.Id })" class="edit">
+                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                            </a>
+                            <form asp-action="DeletePublisher" method="post" asp-route-id="@publisher.Id"
+                                  onclick="return confirm('Are you sure you want to delete this?')"
+                                  style="display: inline-block; width: 30px; padding: 0">
+                                <button type="submit" class="text-danger" style="background: none;box-shadow: none;border: 0;border-radius: 0;">
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>@Model.Publishers.Count</b> out of <b>@Model.TotalCount</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">Previous</a>
+                    </li>
+                    @for (var i = 1; i <= Model.TotalPage; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">
+                        <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

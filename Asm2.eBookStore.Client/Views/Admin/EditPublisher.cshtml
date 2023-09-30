@@ -1,0 +1,46 @@
+﻿@model Asm2.eBookStore.Client.Models.Publishers.PublisherEditViewModel
+
+@{
+    ViewBag.Title = "Edit Publisher";
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Publisher</h4>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label"></label>
+        <input asp-for="Id" class="form-control" disabled/>
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Publisher.Name" class="form-label"></label>
+        <input asp-for="Publisher.Name" class="form-control"/>
+        <span asp-validation-for="Publisher.Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Publisher.City" class="form-label"></label>
+        <input asp-for="Publisher.City" class="form-control"/>
+        <span asp-validation-for="Publisher.City" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Publisher.State" class="form-label"></label>
+        <input asp-for="Publisher.State" class="form-control"/>
+        <span asp-validation-for="Publisher.State" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Publisher.Country" class="form-label"></label>
+        <input asp-for="Publisher.Country" class="form-control"/>
+        <span asp-validation-for="Publisher.Country" class="text-danger"></span>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
+        <input type="submit" class="btn btn-info" value="Create">
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
+        <input type="submit" class="btn btn-info" value="Save">
+    </div>
+    <span class="text-danger">@ViewBag.Error</span>
+</form>

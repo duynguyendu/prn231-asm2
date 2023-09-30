@@ -1,0 +1,62 @@
+﻿@model Asm2.eBookStore.Client.Models.Authors.AuthorEditViewModel
+
+@{
+    ViewBag.Title = "Edit Author";
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Author</h4>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label"></label>
+        <input asp-for="Id" class="form-control" disabled/>
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.LastName" class="form-label"></label>
+        <input asp-for="Author.LastName" class="form-control"/>
+        <span asp-validation-for="Author.LastName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.FirstName" class="form-label"></label>
+        <input asp-for="Author.FirstName" class="form-control"/>
+        <span asp-validation-for="Author.FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.Phone" class="form-label"></label>
+        <input asp-for="Author.Phone" class="form-control"/>
+        <span asp-validation-for="Author.Phone" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.Address" class="form-label"></label>
+        <input asp-for="Author.Address" class="form-control"/>
+        <span asp-validation-for="Author.Address" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.City" class="form-label"></label>
+        <input asp-for="Author.City" class="form-control"/>
+        <span asp-validation-for="Author.City" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.State" class="form-label"></label>
+        <input asp-for="Author.State" class="form-control"/>
+        <span asp-validation-for="Author.State" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.Zip" class="form-label"></label>
+        <input asp-for="Author.Zip" class="form-control"/>
+        <span asp-validation-for="Author.Zip" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author.Email" class="form-label"></label>
+        <input asp-for="Author.Email" class="form-control"/>
+        <span asp-validation-for="Author.Email" class="text-danger"></span>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
+        <input type="submit" class="btn btn-info" value="Save">
+    </div>
+    <span class="text-danger">@ViewBag.Error</span>
+</form>
