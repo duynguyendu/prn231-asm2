@@ -5,6 +5,7 @@ using Asm2.eBookStore.EntityModel;
 using Asm2.eBookStore.Service;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Asm2.eBookStore.Api.Controllers;
 
+[Authorize(Roles = "admin")]
 public class PublishersController : ODataController
 {
     private readonly PublishersService _publishersService;

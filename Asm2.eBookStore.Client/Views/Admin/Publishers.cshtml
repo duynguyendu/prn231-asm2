@@ -37,11 +37,11 @@
                 @foreach (var publisher in @Model.Publishers)
                 {
                     <tr>
-                        <td>publisher.Id</td>
-                        <td>publisher.Name</td>
-                        <td>publisher.City</td>
-                        <td>publisher.State</td>
-                        <td>publisher.Country</td>
+                        <td>@publisher.Id</td>
+                        <td>@publisher.Name</td>
+                        <td>@publisher.City</td>
+                        <td>@publisher.State</td>
+                        <td>@publisher.Country</td>
                         <td>
                             <a href="@Url.Action("EditPublisher", new { id = publisher.Id })" class="edit">
                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -62,12 +62,12 @@
                 <div class="hint-text">Showing <b>@Model.Publishers.Count</b> out of <b>@Model.TotalCount</b> entries</div>
                 <ul class="pagination">
                     <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                        <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">Previous</a>
+                        <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage - 1 })" class="page-link">Previous</a>
                     </li>
                     @for (var i = 1; i <= Model.TotalPage; i++)
                     {
                         <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                            <a href="@Url.Action("Publishers", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">@i</a>
+                            <a href="@Url.Action("Publishers", "Admin", new { page = i })" class="page-link">@i</a>
                         </li>
                     }
                     <li class="page-item @(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">

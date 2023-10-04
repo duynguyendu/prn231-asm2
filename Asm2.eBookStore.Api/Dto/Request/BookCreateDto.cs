@@ -21,5 +21,5 @@ public class BookCreateDto
 
     [Required]
     [MinLength(1)]
-    public ICollection<int> AuthorIds { get; set; } = new List<int>();
+    public IList<int> AuthorIds { get; set; } = new List<int>();
 }

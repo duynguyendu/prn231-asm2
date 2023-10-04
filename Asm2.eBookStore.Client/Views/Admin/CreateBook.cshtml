@@ -49,9 +49,60 @@
         <input asp-for="BookCreate.PublishedDate" class="form-control"/>
         <span asp-validation-for="BookCreate.PublishedDate" class="text-danger"></span>
     </div>
+    @for(var i1 = 0; i1 < Model.BookCreate.AuthorIds.Count; i1++)
+    {
+        @Html.HiddenFor(model => Model.BookCreate.AuthorIds[i1])
+    }
     <div class="modal-footer">
         <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1)">
-        <input type="submit" class="btn btn-info" value="Save">
+        <button type="submit" class="btn btn-info" asp-action="CreateBook">Create</button>
     </div>
     <span class="text-danger">@ViewBag.Error</span>
+    <div class="mb-3">
+        <label asp-for="AuthorId" class="form-label"></label>
+        <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select"></select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info" asp-action="AddAuthor">Add author</button>
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>
+                                <b>Authors</b>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Author Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @{ var i = 0; }
+                    @foreach (var authorId in Model.BookCreate.AuthorIds)
+                    {
+                        i += 1;
+                        <tr>
+                            <td>@i</td>
+                            <td>@Model.Authors.Where(x => x.Value == authorId.ToString()).FirstOrDefault()?.Text</td>
+                            <td>
+                                <button type="submit" class="text-danger" style="background: none;box-shadow: none;border: 0;border-radius: 0;" asp-action="RemoveAuthor" asp-route-authorId="@authorId"
+                                        onclick="return confirm('Are you sure you want to delete this?')">
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </form>

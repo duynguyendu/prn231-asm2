@@ -16,7 +16,7 @@ public class BaseController : Controller
     {
         _httpClient = httpClient;
         _context = context;
-        _httpClient.BaseAddress = new Uri("http://localhost:5113/api");
+        _httpClient.BaseAddress = new Uri("http://localhost:5098/api");
     }
 
     protected DataServiceQuery<T> QueryOf<T>()

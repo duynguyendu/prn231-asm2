@@ -9,5 +9,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<BookDto, BookUpdateDto>();
+        CreateMap<AuthorDto, AuthorUpdateDto>();
+        CreateMap<PublisherDto, PublisherUpdateDto>();
     }
 }

@@ -80,9 +80,9 @@ public partial class AdminController
     public async Task<IActionResult> DeleteAuthor(int id)
     {
         var response = await DeleteAsync(QueryOf<AuthorDto>().Where(x => x.Id == id));
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            TempData["ConflictError"] = "Author is related with order";
+            TempData["ConflictError"] = "Author is related with books";
         }
         return RedirectToAction("Authors");
     }

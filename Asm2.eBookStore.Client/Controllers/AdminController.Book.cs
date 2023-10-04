@@ -44,6 +44,7 @@ public partial class AdminController : BaseController
     {
         var model = new BookCreateViewModel();
         await PrepareModel(model);
+        model.BookCreate = new BookCreateDto();
         return View(model);
     }
 
@@ -53,6 +54,12 @@ public partial class AdminController : BaseController
         if (!TryValidateModel(model.BookCreate))
         {
             await PrepareModel(model);
+            return View(model);
+        }
+        var (response, _) = await PostAsync(QueryOf<BookDto>(), model.BookCreate);
+        if (!response.IsSuccessStatusCode)
+        {
+            ViewBag.Error = "Unknown error happened";
             return View(model);
         }
         return RedirectToAction("Books");
@@ -102,9 +109,9 @@ public partial class AdminController : BaseController
     public async Task<IActionResult> DeleteBook(int id)
     {
         var response = await DeleteAsync(QueryOf<BookDto>().Where(x => x.Id == id));
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            TempData["ConflictError"] = "Book is related with order";
+            TempData["ConflictError"] = "Cannot delete book";
         }
         return RedirectToAction("Books");
     }
@@ -123,12 +130,12 @@ public partial class AdminController : BaseController
     private async Task PrepareModel(IBookViewModel model)
     {
         // prepare publishers and authors
-        var (_, publishers) = await GetAsync(QueryOf<PublisherDto>());
+        var (_, publishers) = await GetAsync(QueryOf<PublisherDto>(), pageSize: 10);
         var publisherSelectItems = publishers!.Value
             .Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name })
             .ToList();
 
-        var (_, authors) = await GetAsync(QueryOf<AuthorDto>());
+        var (_, authors) = await GetAsync(QueryOf<AuthorDto>(), pageSize: 10);
         var authorSelectItems = authors!.Value
             .Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.FullName })
             .ToList();
@@ -174,4 +181,19 @@ public partial class AdminController : BaseController
     //     dtos = dtos.Where(x => x.ProductId != productId).ToList();
     //     HttpContext.Session.SetString("orderAuthors", JsonConvert.SerializeObject(dtos));
     // }
+
+    public async Task<IActionResult> AddAuthor(BookCreateViewModel model)
+    {
+        if (model.BookCreate.AuthorIds.All(x => x != model.AuthorId))
+            model.BookCreate.AuthorIds.Add(model.AuthorId);
+        await PrepareModel(model);
+        return View("CreateBook", model);
+    }
+
+    public async Task<IActionResult> RemoveAuthor(BookCreateViewModel model, int authorId)
+    {
+        model.BookCreate.AuthorIds.Remove(model.AuthorId);
+        await PrepareModel(model);
+        return View("CreateBook", model);
+    }
 }

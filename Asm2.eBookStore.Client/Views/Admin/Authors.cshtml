@@ -41,15 +41,15 @@
                 @foreach (var author in @Model.Authors)
                 {
                     <tr>
-                        <td>author.Id</td>
-                        <td>author.LastName</td>
-                        <td>author.FirstName</td>
-                        <td>author.Phone</td>
-                        <td>author.Address</td>
-                        <td>author.City</td>
-                        <td>author.State</td>
-                        <td>author.Zip</td>
-                        <td>author.Email</td>
+                        <td>@author.Id</td>
+                        <td>@author.LastName</td>
+                        <td>@author.FirstName</td>
+                        <td>@author.Phone</td>
+                        <td>@author.Address</td>
+                        <td>@author.City</td>
+                        <td>@author.State</td>
+                        <td>@author.Zip</td>
+                        <td>@author.Email</td>
                         <td>
                             <a href="@Url.Action("EditAuthor", new { id = author.Id })" class="edit">
                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -70,12 +70,12 @@
                 <div class="hint-text">Showing <b>@Model.Authors.Count</b> out of <b>@Model.TotalCount</b> entries</div>
                 <ul class="pagination">
                     <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                        <a href="@Url.Action("Authors", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">Previous</a>
+                        <a href="@Url.Action("Authors", "Admin", new { page = Model.CurrentPage - 1 })" class="page-link">Previous</a>
                     </li>
                     @for (var i = 1; i <= Model.TotalPage; i++)
                     {
                         <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                            <a href="@Url.Action("Authors", "Admin", new { page = Model.CurrentPage + 1 })" class="page-link">@i</a>
+                            <a href="@Url.Action("Authors", "Admin", new { page = i })" class="page-link">@i</a>
                         </li>
                     }
                     <li class="page-item @(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">

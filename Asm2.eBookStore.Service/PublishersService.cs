@@ -39,6 +39,7 @@ public class PublishersService : IGenericService<Publisher>
 
     public async Task DeleteById(int id)
     {
+        // TODO: check for publisher and book
         _unitOfWork.Publishers.Delete(id);
         await _unitOfWork.SaveAsync();
     }

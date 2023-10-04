@@ -1,5 +1,6 @@
 ﻿using Asm2.eBookStore.Api.Dto.Request;
 using Asm2.eBookStore.Api.Dto.Response;
+using Asm2.eBookStore.Client.Models.Authors;
 using Asm2.eBookStore.Client.Models.Publishers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -80,9 +81,9 @@ public partial class AdminController
     public async Task<IActionResult> DeletePublisher(int id)
     {
         var response = await DeleteAsync(QueryOf<PublisherDto>().Where(x => x.Id == id));
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            TempData["ConflictError"] = "Publisher is related with order";
+            TempData["ConflictError"] = "Publisher is related with book";
         }
         return RedirectToAction("Publishers");
     }
