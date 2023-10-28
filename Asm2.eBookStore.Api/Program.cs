@@ -26,6 +26,7 @@ builder.Services
 
 builder.Services.AddControllers();
 
+// Look here
 static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
@@ -36,6 +37,7 @@ static IEdmModel GetEdmModel()
     return builder.GetEdmModel();
 }
 
+// Look here
 builder.Services
     .AddControllers()
     .AddOData(
@@ -71,6 +73,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Look here
 app.UseODataBatching();
 
 app.UseHttpsRedirection();

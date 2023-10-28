@@ -9,6 +9,7 @@ public partial class AdminController
 {
     public async Task<IActionResult> Authors(int page = 1)
     {
+        // Look here
         var query = QueryOf<AuthorDto>().AddQueryOption("$count", "true");
         var (_, result) = await GetAsync(query, page, PageSize);
         var authorsViewModel = new AuthorsViewModel { Authors = result!.Value, };

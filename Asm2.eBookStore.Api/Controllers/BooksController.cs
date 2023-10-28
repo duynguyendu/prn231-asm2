@@ -17,6 +17,7 @@ using Microsoft.OData.UriParser;
 
 namespace Asm2.eBookStore.Api.Controllers;
 
+// Look here
 [Authorize(Roles = "admin")]
 public class BooksController : ODataController
 {
