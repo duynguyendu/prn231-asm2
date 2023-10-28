@@ -23,7 +23,7 @@ public class AuthorizationMiddleware : IMiddleware
 
         var role = context.Session.GetString("Role");
         var allow =
-            (role == Admin && context.Request.Path.Value!.ToLower().StartsWith("admin"))
+            (role == Admin && context.Request.Path.Value!.ToLower().StartsWith("/admin"))
             || role == Member;
         if (!allow)
         {

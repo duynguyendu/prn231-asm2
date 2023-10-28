@@ -63,7 +63,9 @@ public class AuthorsController : ODataController
     [EnableQuery]
     public async Task<IActionResult> Delete([FromODataUri] int key)
     {
-        await _authorsService.DeleteById(key);
-        return NoContent();
+        var result = await _authorsService.DeleteById(key);
+        if (result)
+            return NoContent();
+        return BadRequest();
     }
 }

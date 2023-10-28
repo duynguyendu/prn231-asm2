@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Asm2.eBookStore.EntityModel;
 
 namespace Asm2.eBookStore.Api.Dto.Response;
 
@@ -18,4 +19,5 @@ public class AuthorDto : IODataEntity
     public string? Email { get; set; } = null!;
 
     public string FullName => $"{FirstName} {LastName}";
+    public virtual ICollection<BookAuthor>? BookAuthors { get; set; }
 }

@@ -4,6 +4,7 @@ using Asm2.eBookStore.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Asm2.eBookStore.EntityModel.Migrations
 {
     [DbContext(typeof(EBookStoreDbContext))]
-    partial class eBookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231014025254_BookAuthorUpdateHahaha")]
+    partial class BookAuthorUpdateHahaha
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,10 +155,15 @@ namespace Asm2.eBookStore.EntityModel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PublisherId")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Publishers");
                 });
@@ -229,7 +237,7 @@ namespace Asm2.eBookStore.EntityModel.Migrations
             modelBuilder.Entity("Asm2.eBookStore.EntityModel.Book", b =>
                 {
                     b.HasOne("Asm2.eBookStore.EntityModel.Publisher", "Publisher")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("PublisherId");
 
                     b.Navigation("Publisher");
@@ -248,6 +256,13 @@ namespace Asm2.eBookStore.EntityModel.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Asm2.eBookStore.EntityModel.Publisher", b =>
+                {
+                    b.HasOne("Asm2.eBookStore.EntityModel.Publisher", null)
+                        .WithMany("Publishers")
+                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("Asm2.eBookStore.EntityModel.User", b =>
@@ -281,7 +296,7 @@ namespace Asm2.eBookStore.EntityModel.Migrations
 
             modelBuilder.Entity("Asm2.eBookStore.EntityModel.Publisher", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("Publishers");
                 });
 #pragma warning restore 612, 618
         }

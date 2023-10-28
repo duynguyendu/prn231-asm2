@@ -31,7 +31,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseMiddleware<AuthenticationMiddleware>();
-app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<AuthorizationMiddleware>();
 
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 

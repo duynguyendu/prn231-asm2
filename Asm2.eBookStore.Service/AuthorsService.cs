@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Asm2.eBookStore.Service;
 
-public class AuthorsService : IGenericService<Author>
+public class AuthorsService
 {
     private readonly UnitOfWork _unitOfWork;
 
@@ -37,13 +37,15 @@ public class AuthorsService : IGenericService<Author>
         return author;
     }
 
-    public async Task DeleteById(int id)
+    public async Task<bool> DeleteById(int id)
     {
         if (!_unitOfWork.BookAuthors.ExistByAuthorId(id))
         {
             _unitOfWork.Authors.Delete(id);
-            // TODO: only delete if there is no BookAuthor
             await _unitOfWork.SaveAsync();
+            return true;
         }
+
+        return false;
     }
 }

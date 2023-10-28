@@ -4,6 +4,7 @@ using Asm2.eBookStore.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Asm2.eBookStore.EntityModel.Migrations
 {
     [DbContext(typeof(EBookStoreDbContext))]
-    partial class eBookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231014025414_BookAuthorUpdateHahahaaaa")]
+    partial class BookAuthorUpdateHahahaaaa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
